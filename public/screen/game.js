@@ -35,6 +35,9 @@ $(window).keydown(function (e) {
   }
 });
 
+var connection = new Connection("ws://" + location.host + "/screen");
+var controlData;
+
 GRID_SIZE = 60;
 
 Matrix = function (rows, columns) {
@@ -384,13 +387,19 @@ Ship = function () {
   this.collidesWith = ["asteroid", "bigalien", "alienbullet"];
 
   this.preMove = function (delta) {
-    if (KEY_STATUS.left) {
+    if (controlData && controlData.yaw) {
+        this.vel.rot = controlData.yaw / 5;
+    } else {
+      this.vel.rot = 0;
+    }
+
+    /*if (KEY_STATUS.right) {
       this.vel.rot = -6;
     } else if (KEY_STATUS.right) {
       this.vel.rot = 6;
     } else {
       this.vel.rot = 0;
-    }
+    }*/
 
     if (KEY_STATUS.up) {
       var rad = ((this.rot-90) * Math.PI)/180;
@@ -914,7 +923,7 @@ Game = {
   FSM: {
     boot: function () {
       Game.spawnAsteroids(5);
-      this.state = 'waiting';
+      this.state = 'start';
     },
     waiting: function () {
       Text.renderText(window.ipad ? 'Touch Screen to Start' : 'Press Space to Start', 36, Game.canvasWidth/2 - 270, Game.canvasHeight/2);
@@ -1193,6 +1202,18 @@ $(function () {
   };
 
   mainLoop();
+
+
+
+  connection.websocket.addEventListener('message', function (e) {
+      try {
+          controlData = JSON.parse(e.data);
+          console.log(controlData);
+      } catch (e) {
+          console.log(e.data);
+      }
+      //controlData
+  });
 
   $(window).keydown(function (e) {
     switch (KEY_CODES[e.keyCode]) {

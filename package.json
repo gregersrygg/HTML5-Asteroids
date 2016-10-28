@@ -1,0 +1,27 @@
+{
+  "name": "wall-asteroids",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": "true",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gregersrygg/HTML5-Asteroids.git"
+  },
+  "author": "Framsie Kjerneteam <teamframsiekjerneteam@finn.no>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gregersrygg/HTML5-Asteroids/issues"
+  },
+  "homepage": "https://github.com/gregersrygg/HTML5-Asteroids",
+  "dependencies": {
+    "cookie-session": "^1.2.0",
+    "express-ws": "^0.2.6",
+    "hogan-express": "^0.5.2",
+    "ws": "^0.8.0"
+  }
+}

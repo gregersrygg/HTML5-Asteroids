@@ -1,4 +1,4 @@
-var ipad = navigator.userAgent.match(/iPad/i) != null;
+var ipad = navigator.userAgent.match(/iPhone/i) != null;
 
 if (ipad) {
   $(function () {
@@ -32,4 +32,3 @@ if (ipad) {
     });
   });
 }
-
